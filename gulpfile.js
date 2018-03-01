@@ -118,6 +118,10 @@ gulp.task('copy-lib', function () {
     return gulp.src(static + 'lib/**/*')
         .pipe(gulp.dest(dist + CustomDirectory + 'lib'))
 })
+gulp.task('copy-img', function () {
+    return gulp.src(static + 'img/**/*')
+        .pipe(gulp.dest(dist + CustomDirectory + 'img'))
+})
 
 gulp.task('del', function (cb) {
     return del(["dist"], cb) // 构建前先删除dist文件里的旧版本
@@ -180,7 +184,7 @@ gulp.task('babel', function () {
 });
 
 
-gulp.task("start", ['less', 'sass', 'babel'], function () {
+gulp.task("start", ['less', 'sass', 'babel', 'minImage'], function () {
     gulp.watch(src.css + '**/*.less', ['less']);
     gulp.watch(src.css + '**/*.scss', ['sass']);
     gulp.watch(src.script + '**/*.js', ['babel']);
@@ -192,7 +196,7 @@ gulp.task("default", ['del'], sequence(
     //编译、压缩文件
     ['start'], ['minJs', 'minImage', 'minCss'],
     //copy
-    ['copy-lib'],
+    ['copy-lib', 'copy-img'],
     //MD5版本号、版本替换
     ['revHtml']
 ));
