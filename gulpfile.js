@@ -31,7 +31,8 @@ let gulp = require('gulp'),
 * */
 let src = {
         css: 'src/resource/css/',
-        script: 'src/resource/script/'
+        script: 'src/resource/script/',
+        img: 'src/resource/img/'
     },
     static = 'src/static/',
     dist = 'dist/',
@@ -100,12 +101,12 @@ gulp.task('minJs', function () {
 });
 //压缩图片
 gulp.task('minImage', function () {
-    return gulp.src(static + 'img/*.{png,jpg,gif,ico}')
+    return gulp.src(src.img + '*.{png,jpg,gif,ico}')
         .pipe(minImage({
             progressive: true,
             use: [minImageForPng()]
         }))
-        .pipe(gulp.dest(dist + CustomDirectory + 'img'));
+        .pipe(gulp.dest(static + 'img'));
 });
 gulp.task('minCss', function () {
     return gulp.src(static + 'css/*.css')
